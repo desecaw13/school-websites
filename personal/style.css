@@ -61,53 +61,66 @@ a:active {
         max-width: 100px;
     }
 
-/* switch */
-.switch {
-    margin-inline: auto;
-    position: relative;
-    display: block;
-    width: 3.75rem;
-    height: 2.125rem;
+/* slideshow */
+.slide-wrap {
+    /**/
 }
 
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
+.slideshow {
+    width: 50vw;
+    height: 30vh;
+    display: inline-flex;
+    overflow-x: auto;
+    border: 2px solid #666; /*outset ?*/
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+    .slideshow > div {
+        flex-shrink: 0;
+        height: auto;
+        width: 100%;
+        scroll-snap-align: start;
     }
 
-.slider {
-    position: absolute;
+/*
+.next {
+    align-self: center;
+    content: "->";
+}
+.prev, .next {
     cursor: pointer;
-    top: 0;
-    left: 0;
+    position: absolute;
+    width: auto;
+    top: 50%;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+.next {
     right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    border-radius: 2.125rem;
-    transition: .4s;
+    border-radius: 3px 0 0 3px;
+}
+*/
+
+.slide-link {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #bbb;
+    border: thin solid #bbb; /*todo: decide style*/
+    border-radius: 50%;
+    margin: 0.25rem;
+    height: auto;
+    width: 1rem;
 }
 
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 1.625rem;
-        width: 1.625rem;
-        left: 0.25rem;
-        bottom: 0.25rem;
-        background-color: white;
-        border-radius: 50%;
-        transition: .4s;
+/*@supports (scroll-snap-type: x mandatory) {
+    .slide-link {
+        display: none;
     }
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(1.625rem);
-}
+}*/
