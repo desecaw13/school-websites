@@ -5,7 +5,8 @@ export default class Paddle {
     #X;
     #Y;
     #data;
-    constructor(x, y, width, height){
+
+    constructor(x, y, width, height) {
         this.#X = x;
         this.#Y = y;
         this.width = width;
@@ -13,9 +14,9 @@ export default class Paddle {
         //todo: might want to make width and height read-only
 
         this.#data = [];
-        for(let i = 0; i < height; i++) {
+        for (let i = 0; i < height; i++) {
             this.#data[i] = [];
-            for(let j = 0; j < width; j++) {
+            for (let j = 0; j < width; j++) {
                 this.#data[i][j] = 1;
             }
         }
@@ -27,7 +28,6 @@ export default class Paddle {
     get y() { return this.#Y; }
     set y(v) { this.#Y = v; }
 
-    //get data() { return this.#data }
     *getData() {
         yield this.#data;
         //yield { x: this.x, y: this.y };

@@ -27,8 +27,10 @@ function main(timestamp) {
 /**
  * Starts the game when the start button is clicked.
  */
-document.getElementById('start').addEventListener('click', () => {
+let start_btn = document.getElementById('start');
+start_btn.addEventListener('click', () => {
     document.activeElement.blur();
+    start_btn.disabled = true;
 
     // Initializes [the game]. 
     //game.init(16, 16);
