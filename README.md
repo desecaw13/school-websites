@@ -1,5 +1,4 @@
 # school-websites
-Not much.
 
-- [Personal](./personal/index.html)
-- [Pong](./pong/index.html)
+- [Personal](https://desecaw13.github.io/school-websites/personal/index.html)
+- [Pong](https://desecaw13.github.io/school-websites/pong/index.html)
