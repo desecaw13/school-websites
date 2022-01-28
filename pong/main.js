@@ -1,16 +1,5 @@
 import * as game from './pong.js';
 
-/*
-https://www.bryanbraun.com/checkboxland/
-https://www.bryanbraun.com/checkboxland/docs/css/cbl-normalize-size.css
-https://github.com/bryanbraun/checkboxland/tree/main/docs/demos
-https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
-https://stackoverflow.com/a/16580064
-https://stackoverflow.com/a/30516012
-https://stackoverflow.com/a/56507053
-https://isaacsukin.com/news/2015/01/detailed-explanation-javascript-game-loops-and-timing
-*/
-
 /**
  * Loops through game logic using `window.requestAnimationFrame`.
  * @param {number} timestamp current time since page load.

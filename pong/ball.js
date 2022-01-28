@@ -1,5 +1,8 @@
 // see top comments in paddle.js
 
+/**
+ * Represents a ball.
+ */
 export default class Ball {
     #X;
     #Y;
@@ -7,6 +10,12 @@ export default class Ball {
     #data;
     direction = { x: 0, y: 0 };
 
+    /**
+     * Initializes a new ball.
+     * @param {number} x The starting X position. Should be a whole number.
+     * @param {number} y The starting Y position. Should be a whole number.
+     * @param {number} radius The size of the ball's radius.
+     */
     constructor(x, y, radius) {
         this.#X = x;
         this.#Y = y;

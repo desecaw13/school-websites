@@ -1,4 +1,4 @@
-import { Checkboxland } from './checkboxland.mjs'; //'https://unpkg.com/checkboxland?module';
+import { Checkboxland } from 'https://unpkg.com/checkboxland?module';
 import Paddle from './paddle.js';
 import Ball from './ball.js';
 
@@ -69,15 +69,17 @@ function init(width, height, options = {}) {
 }
 
 /**
- * 
+ * Runs a game logic cycle.
  * @param {number} dt The delta time in ms.
  */
 function update(dt) {
     //console.log(1/dt*1000);
 
     if (ball.x < -1 || ball.x > maxWidth) {
-        console.log('game over'); // todo: points
-        //return;
+        //console.log('game over');
+        // todo: points
+        init(maxWidth, maxHeight);
+        return;
     }
 
     if (pressedKeys.up) {
@@ -126,6 +128,9 @@ function update(dt) {
     ball.y += ball.direction.y * 10 * dt/1000;
 }
 
+/**
+ * Updates display of game on screen.
+ */
 function draw() {
     //if (pressedKeys.changed) {
         cbl.clearData();
@@ -149,6 +154,10 @@ function secondPTurn() {
     }
 }
 
+/**
+ * Event handler for contolling paddles with keyboard.
+ * @param {Event} e The keydown event
+ */
 function onKeyDown(e) {
     if (e.defaultPrevented) { return; }
 
