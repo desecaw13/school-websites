@@ -47,12 +47,14 @@ a:active {
 
 .cert {
     display: inline-block;
+    margin: 0.25rem;
     padding: 0.5rem;
     border: 2px inset;
     font-size: smaller;
     text-align: left;
     height: auto;
-    max-width: 16rem;
+    width: auto;
+    max-width: 100%;
 }
 
     .cert img {
@@ -62,10 +64,6 @@ a:active {
     }
 
 /* slideshow */
-.slide-wrap {
-    /**/
-}
-
 .slideshow {
     width: 50vw;
     height: 30vh;
@@ -88,6 +86,7 @@ a:active {
     color: white;
     font-weight: bold;
     user-select: none;
+    /* todo: center/middle vertically */
 }
 
 .slide-link {
@@ -100,9 +99,3 @@ a:active {
     height: auto;
     width: 1rem;
 }
-
-/*@supports (scroll-snap-type: x mandatory) {
-    .slide-link {
-        display: none;
-    }
-}*/
