@@ -21,7 +21,11 @@ body {
 nav > ul {
     display: inline-block;
 	margin: auto;
-    list-style-type: '> ';
+    list-style-type: '>  ';
+}
+
+nav > ul > li {
+    width: fit-content;
 }
 
 a:link {
@@ -80,14 +84,6 @@ a:active {
         width: 100%;
         scroll-snap-align: start;
     }
-
-.prev, .next {
-    cursor: pointer;
-    color: white;
-    font-weight: bold;
-    user-select: none;
-    /* todo: center/middle vertically */
-}
 
 .slide-link {
     display: inline-block;
