@@ -21,14 +21,14 @@ start_btn.addEventListener('click', () => {
     document.activeElement.blur();
     start_btn.disabled = true;
 
+    // [Creates the events for game]. //move to game.init ?
+    document.addEventListener('keydown', game.onKeyDown, true);
+    //todo: 'mousemove' ?
+
     // Initializes [the game]. 
     //game.init(16, 16);
     game.init(36, 24);
     //todo: test and figure out smalls
-
-    // [Creates the events for game]. //move to game.init ?
-    document.addEventListener('keydown', game.onKeyDown, true);
-    //todo: 'mousemove' ?
 
     // the begining proper.
     window.requestAnimationFrame(main);
