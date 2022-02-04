@@ -14,32 +14,47 @@
 </head>
 <body>
 	<div id="menu">
+		<h1>Checkbox Pong</h1>
+		<h3>Options</h3>
 		<ul>
-			<!--
-				size of cbland
-				difficulty
-				entry of name(s) for score keeping
-
-				https://stackoverflow.com/a/67587022
-				https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
-				https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
-				https://css-tricks.com/value-bubbles-for-range-inputs/
-			-->
 			<li>
 				<label for="multiplayer">Multiplayer</label>
 				<input id="multiplayer" type="checkbox">
 			</li>
 			<li>
-				<div>Dimensions</div>
+				<h4>Dimensions</h4>
 				<label for="x-size">X</label>
-				<input id="x-size" type="range" min="14" max="64" step="1">
+				<input id="x-size" name="xsize" type="range"
+					value="35" min="13" max="65" step="1"
+					onchange="setAttribute('value', value);">
+				<br>
 				<label for="y-size">Y</label>
-				<input id="y-size" type="range" min="14" max="64" step="2">
+				<input id="y-size" name="ysize" type="range"
+					value="24" min="13" max="65" step="1"
+					onchange="setAttribute('value', value);">
 			</li>
+			<li>
+				<h4>Difficulty</h4>
+				<label for="easy">Easy</label>
+				<input id="easy" type="checkbox">
+				<label for="medium">Medium</label>
+				<input id="medium" type="checkbox">
+				<label for="hard">Hard</label>
+				<input id="hard" type="checkbox">
+			</li>
+			<li>
+				<h4>Scoreboard Names</h4>
+				<label for="name-one">Name 1</label>
+				<input id="name-one" type="text" value="Player">
+				<label for="name-two">Name 2</label>
+				<input id="name-two" type="text" value="Computer">
+			</li>
+			<br>
 			<li><button id="start" type="button">Start</button></li>
 		</ul>
 	</div>
 	<div id="checkboxland"></div>
+	<button id="reset" type="button">Reset</button>
 </body>
-<!-- TODO: menu with options, score screen -->
+<!-- TODO: js menu options, score screen -->
 </html>

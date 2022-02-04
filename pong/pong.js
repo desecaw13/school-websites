@@ -145,6 +145,21 @@ function draw() {
     cbl.setData(...ball.getData());
 }
 
+function destroy() {
+    cbl.clearData();
+    cbl = null;
+    // cbl
+    firstP = null;
+    secondP = null;
+    ball = null;
+    maxHeight = null;
+    maxWidth = null;
+    lastTimestamp = 0;
+    pressedKeys.up = false;
+    pressedKeys.down = false;
+    pressedKeys.changed = true;
+}
+
 function secondPTurn() {
     //todo: delay
     if (ball.y < secondP.y + secondP.height / 2 - 2) {
@@ -183,5 +198,6 @@ export {
     init,
     update,
     draw,
+    destroy,
     onKeyDown
 }
