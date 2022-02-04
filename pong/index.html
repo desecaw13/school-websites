@@ -9,11 +9,35 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Pong</title>
+	<link rel="stylesheet" href="index.css">
 	<script type="module" src="main.js"></script>
 </head>
 <body>
 	<div id="menu">
-		<button id='start' type="button">Start</button>
+		<ul>
+			<!--
+				size of cbland
+				difficulty
+				entry of name(s) for score keeping
+
+				https://stackoverflow.com/a/67587022
+				https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
+				https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
+				https://css-tricks.com/value-bubbles-for-range-inputs/
+			-->
+			<li>
+				<label for="multiplayer">Multiplayer</label>
+				<input id="multiplayer" type="checkbox">
+			</li>
+			<li>
+				<div>Dimensions</div>
+				<label for="x-size">X</label>
+				<input id="x-size" type="range" min="14" max="64" step="1">
+				<label for="y-size">Y</label>
+				<input id="y-size" type="range" min="14" max="64" step="2">
+			</li>
+			<li><button id="start" type="button">Start</button></li>
+		</ul>
 	</div>
 	<div id="checkboxland"></div>
 </body>

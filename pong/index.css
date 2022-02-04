@@ -1,0 +1,35 @@
+
+body {
+    font-size: 100%;
+}
+
+#menu {
+    text-align: center;
+    /*overflow: auto;*/
+    height: auto;
+    width: auto;
+    max-width: 100%;
+}
+
+#menu > ul {
+    list-style-type: none;
+    padding: initial;
+    margin: auto;
+}
+
+#menu > ul > li {
+    display: block;
+    margin: 0.5rem;
+}
+
+#menu label {
+    /**/
+}
+
+#menu input {
+    vertical-align: middle;
+}
+
+#menu button {
+    /**/
+}

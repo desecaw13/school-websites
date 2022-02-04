@@ -25,9 +25,10 @@ start_btn.addEventListener('click', () => {
     document.addEventListener('keydown', game.onKeyDown, true);
     //todo: 'mousemove' ?
 
-    // Initializes [the game]. 
+    // Initializes the game. 
     //game.init(16, 16);
-    game.init(36, 24);
+    game.init(13, 14);
+    //game.init(36, 24);
     //todo: test and figure out smalls
 
     // the begining proper.

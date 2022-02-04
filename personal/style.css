@@ -20,7 +20,7 @@ body {
 
 nav > ul {
     display: inline-block;
-	margin: auto;
+    margin: auto;
     list-style-type: '>  ';
 }
 
