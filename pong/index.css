@@ -3,6 +3,16 @@ body {
     font-size: 100%;
 }
 
+details > p {
+    margin-top: 0.5rem;
+    margin-bottom: auto;
+}
+
+/*#menu*/
+h3, h4 {
+    margin-bottom: 0.5rem;
+}
+
 #menu {
     text-align: center;
     height: auto;
@@ -18,22 +28,28 @@ body {
 
 #menu > ul > li {
     display: block;
+    white-space: nowrap;
     margin: 0.5rem;
 }
 
 #menu input {
     vertical-align: middle;
-}
-
-/*#menu*/
-h1, h3, h4 {
-    margin: auto;
+    max-width: 100%;
 }
 
 #x-size::after, #y-size::after {
     content: attr(value);
     position: relative;
     left: 1rem;
+}
+
+#cbl-wrap {
+    max-width: fit-content;
+}
+
+#names-wrap {
+    display: flex;
+    justify-content: space-around;
 }
 
 #reset {

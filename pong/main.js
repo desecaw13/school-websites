@@ -2,10 +2,12 @@ import * as game from './pong.js';
 
 let reset = false;
 
-let menu = document.getElementById('menu');
-let xsize = document.getElementById('x-size');
-let ysize = document.getElementById('y-size');
+let menu = document.menu;
 let start_btn = document.getElementById('start');
+const names = {
+    first: document.getElementById('first-name'),
+    second: document.getElementById('second-name')
+};
 let reset_btn = document.getElementById('reset');
 
 /**
@@ -28,6 +30,8 @@ function main(timestamp) {
  */
 start_btn.addEventListener('click', () => {
     menu.style.display = 'none';
+    names.first.innerText = menu.nameOne.value;
+    names.second.innerText = menu.nameTwo.value;
     reset_btn.style.display = 'initial';
     document.activeElement.blur();
 
@@ -36,6 +40,8 @@ start_btn.addEventListener('click', () => {
         game.destroy();
         document.getElementById('checkboxland').replaceChildren();
         menu.style.display = 'initial';
+        names.first.innerText = '';
+        names.second.innerText = '';
         reset_btn.style.display = 'none';
         document.activeElement.blur();
     });
@@ -46,7 +52,10 @@ start_btn.addEventListener('click', () => {
 
     // Initializes the game. 
     //game.init(16, 16);
-    game.init(35, 24);
+    game.init(menu.xsize.value, menu.ysize.value,
+        menu.multiplayer.checked,
+        menu.difficulty.value
+    );
     //todo: test and figure out smalls
 
     // the begining proper.

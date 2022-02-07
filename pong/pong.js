@@ -52,7 +52,7 @@ const lastRender = { value: lastTimestamp };
  * @param {number} height The number of checkboxes vertical. Must be a whole number.
  * @param {*} options Options
  */
-function init(width, height, options = {}) {
+function init(width, height, multiplayer, difficulty) {
     cbl = new Checkboxland({ dimensions: `${width}x${height}` });
     maxHeight = height;
     maxWidth = width;
@@ -80,9 +80,8 @@ function update(dt) {
     //console.log(1/dt*1000);
 
     if (ball.x < -1 || ball.x > maxWidth) {
-        //console.log('game over');
-        // todo: points
-        init(maxWidth, maxHeight);
+        // todo: points and rounds
+        //reset, newRound, ?
         return;
     }
 
