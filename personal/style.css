@@ -1,4 +1,4 @@
-﻿@font-face {
+@font-face {
     font-family: Merriweather;
     src: url(Merriweather-Regular.ttf);
 }
@@ -13,9 +13,27 @@ html {
 
 body {
     text-align: center;
-    background: linear-gradient(rgb(64, 64, 64), rgb(191, 191, 191), rgb(64, 64, 64));
+    background: linear-gradient(rgb(80, 80, 80), rgb(175, 175, 175), rgb(80, 80, 80));
     font-size: 100%;
     padding: 1rem;
+}
+
+/* TODO: hr */
+hr {
+    /* first */
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    /* second */
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
+summary {
+    font-size: 1.5em;
 }
 
 nav > ul {
