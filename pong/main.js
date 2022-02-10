@@ -26,37 +26,41 @@ function main(timestamp) {
 }
 
 /**
+ * Resets the game.
+ */
+reset_btn.addEventListener('click', () => {
+    reset = true;
+    game.destroy();
+    document.getElementById('checkboxland').replaceChildren();
+    menu.style.display = 'initial';
+    names.first.innerText = '';
+    names.second.innerText = '';
+    names.first.setAttribute('score', '');
+    names.second.setAttribute('score', '');
+    reset_btn.style.display = 'none';
+    document.activeElement.blur();
+});
+
+/**
  * Starts the game when the start button is clicked.
  */
 start_btn.addEventListener('click', () => {
     menu.style.display = 'none';
     names.first.innerText = menu.nameOne.value;
     names.second.innerText = menu.nameTwo.value;
+    names.first.setAttribute('score', 0);
+    names.second.setAttribute('score', 0);
     reset_btn.style.display = 'initial';
     document.activeElement.blur();
 
-    reset_btn.addEventListener('click', () => {
-        reset = true;
-        game.destroy();
-        document.getElementById('checkboxland').replaceChildren();
-        menu.style.display = 'initial';
-        names.first.innerText = '';
-        names.second.innerText = '';
-        reset_btn.style.display = 'none';
-        document.activeElement.blur();
-    });
-
-    // [Creates the events for game]. //move to game.init ?
+    // Adds the events for game.
     document.addEventListener('keydown', game.onKeyDown, true);
-    //todo: 'mousemove' ?
 
-    // Initializes the game. 
-    //game.init(16, 16);
+    // Initializes the game.
     game.init(menu.xsize.value, menu.ysize.value,
         menu.multiplayer.checked,
         menu.difficulty.value
     );
-    //todo: test and figure out smalls
 
     // the begining proper.
     window.requestAnimationFrame(main);
