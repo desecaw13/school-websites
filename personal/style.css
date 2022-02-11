@@ -29,13 +29,13 @@ summary {
     font-size: 1.5em;
 }
 
-nav > ul {
+ul {
     display: inline-block;
     margin: auto;
     list-style-type: '>  ';
 }
 
-nav > ul > li {
+ul > li {
     width: fit-content;
 }
 
@@ -81,13 +81,15 @@ a:active {
 
 /* slideshow */
 .slideshow {
-    width: 50vw;
-    height: 30vh;
     display: inline-flex;
     overflow-x: auto;
     border: 2px solid #666; /*outset ?*/
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    height: min-content;
+    max-height: 90vh;
+    width: min-content;
+    max-width: 50vw;
 }
 
     .slideshow > div {

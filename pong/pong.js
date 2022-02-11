@@ -1,4 +1,4 @@
-import { Checkboxland } from './checkboxland.mjs';//'https://unpkg.com/checkboxland?module';
+import { Checkboxland } from 'https://unpkg.com/checkboxland?module';
 import Paddle from './paddle.js';
 import Ball from './ball.js';
 
