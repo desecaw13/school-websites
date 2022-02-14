@@ -8,7 +8,7 @@ let edges = offset; //dark
 let center = 255 - offset; //light
 let count = 0;
 let i = 1;
-setInterval(() => {return;//tmp
+setInterval(() => {
     document.body.style.background = `linear-gradient(rgb(${edges},${edges},${edges}), rgb(${center},${center},${center}), rgb(${edges},${edges},${edges}))`;
 
     if (count >= delta) {
