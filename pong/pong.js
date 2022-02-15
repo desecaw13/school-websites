@@ -284,7 +284,7 @@ function newRound() {
 
     ballSpeed = 10;
 
-    genBallDirection(_info.df); // TODO fix: brocken
+    genBallMovement(_info.df);
 
     names.first.setAttribute('score', score.p1);
     names.second.setAttribute('score', score.p2);
