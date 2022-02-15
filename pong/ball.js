@@ -7,8 +7,8 @@ export default class Ball {
     #X;
     #Y;
     #radius;
-    #data;
     direction = { x: 0, y: 0 };
+    #data;
 
     /**
      * Initializes a new ball.

@@ -2,10 +2,6 @@ import { Checkboxland } from 'https://unpkg.com/checkboxland?module';
 import Paddle from './paddle.js';
 import Ball from './ball.js';
 
-/* todo:
-    -speed up ball over time
-*/
-
 /**
  * An instance of checkboxland.
  */
@@ -66,6 +62,10 @@ const pressedKeys = {
  */
 let delay;
 
+let ballSpeed = 10;
+let millisecondsTillBallSpeedUp;
+let timeSinceLastSpeedUp;
+
 let lastTimestamp = 0;
 /**
  * The previous timestamp.
@@ -98,32 +98,16 @@ function init(width, height, multiplayer, difficulty, options = {}) {
     firstP = new Paddle(fx, py, pw, ph);
     secondP = new Paddle(sx, py, pw, ph);
 
-    const br = 1;
+    const br = Math.round(Math.min(width, height) / 12);
     const bx = width / 2 - br / 2;
     const by = height / 2 - br / 2;
     ball = new Ball(bx, by, br);
 
-    ball.direction.x = Math.random() < 0.5 ? 1 : -1; // randomly pick either 1 or -1
-    ball.direction.y = Math.random() * 2 - 1; // randomly pick a floating point between -1 and 1
-    // ball.direction.y should not be close to zero because vertical movement will be too small.
-    while (Math.abs(ball.direction.y) < 0.1) {
-        ball.direction.y = Math.random() * 2 - 1;
-    }
-
-    switch (difficulty) {
-        case 'easy':
-            delay = 200 + 200 * ball.direction.y;
-            break;
-        case 'medium':
-            delay = 100 + 100 * ball.direction.y;
-            break;
-        case 'hard':
-            delay = 50 + 50 * ball.direction.y;
-            break;
-    }
+    genBallMovement(difficulty);
 
     _info = {
         mp: multiplayer,
+        df: difficulty,
 
         pw: pw,
         ph: ph,
@@ -142,18 +126,47 @@ function init(width, height, multiplayer, difficulty, options = {}) {
 }
 
 /**
+ * Sets up ball direction, delay, and speed up.
+ * @param {string} difficulty easy, medium, or hard.
+ */
+function genBallMovement(difficulty) {
+    ball.direction.x = Math.random() < 0.5 ? 1 : -1; // randomly pick either 1 or -1
+    ball.direction.y = Math.random() * 2 - 1; // randomly pick a floating point between -1 and 1
+
+    // ball.direction.y should not be close to zero because vertical movement will be too small.
+    while (Math.abs(ball.direction.y) < 0.1) {
+        ball.direction.y = Math.random() * 2 - 1;
+    }
+
+    const absBallDirY = Math.abs(ball.direction.y);
+    switch (difficulty) {
+        case 'easy':
+            delay = 200 + 200 * absBallDirY;
+            break;
+        case 'medium':
+            delay = 100 + 100 * absBallDirY;
+            break;
+        case 'hard':
+            delay = 50 + 50 * absBallDirY;
+            break;
+    }
+    millisecondsTillBallSpeedUp = delay / absBallDirY;
+    timeSinceLastSpeedUp = 0;
+}
+
+/**
  * Runs a game logic cycle.
  * @param {number} dt The delta time in ms.
  */
 function update(dt) {
     //console.log(1/dt*1000);
 
-    if (ball.x < -1) {
-        score.p2 += 1;
-        newRound();
-    }
     if (ball.x > maxWidth) {
         score.p1 += 1;
+        newRound();
+    }
+    if (ball.x < -1) {
+        score.p2 += 1;
         newRound();
     }
 
@@ -208,17 +221,24 @@ function update(dt) {
     }
 
     if (ball.y < -1) {
-        ball.direction.y = 1;
+        ball.direction.y = -ball.direction.y;
         ball.y += 1;
     }
-    else if (ball.y > maxHeight) {
-        ball.direction.y = -1;
+    else if (ball.y + ball.radius - 1 > maxHeight) {
+        ball.direction.y = -ball.direction.y;
         ball.y -= 1;
     }
 
     if (started) {
-        ball.x += ball.direction.x * 10 * dt/1000;
-        ball.y += ball.direction.y * 10 * dt/1000;
+        ball.x += ball.direction.x * ballSpeed * dt/1000;
+        ball.y += ball.direction.y * ballSpeed * dt/1000;
+
+        timeSinceLastSpeedUp += dt;
+    }
+
+    if (timeSinceLastSpeedUp >= millisecondsTillBallSpeedUp) {
+        ballSpeed += 0.05;
+        timeSinceLastSpeedUp = 0;
     }
 }
 
@@ -259,7 +279,12 @@ function newRound() {
     pressedKeys.down = false;
     pressedKeys.s = false;
     pressedKeys.changed = true;
+
     started = false;
+
+    ballSpeed = 10;
+
+    genBallDirection(_info.df); // TODO fix: brocken
 
     names.first.setAttribute('score', score.p1);
     names.second.setAttribute('score', score.p2);
@@ -273,6 +298,8 @@ function destroy() {
     firstP = null;
     secondP = null;
     ball = null;
+    score.p1 = 0;
+    score.p2 = 0;
     maxHeight = null;
     maxWidth = null;
     lastTimestamp = 0;
@@ -281,6 +308,11 @@ function destroy() {
     pressedKeys.down = false;
     pressedKeys.s = false;
     pressedKeys.changed = true;
+    _info = null;
+    delay = null;
+    millisecondsTillBallSpeedUp = null;
+    timeSinceLastSpeedUp = null;
+    ballSpeed = 10;
     started = false;
 }
 
