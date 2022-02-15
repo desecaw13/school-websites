@@ -1,3 +1,7 @@
+// Joe Olpin
+// HTML Second Web Page
+// January 21 - February 18, 2022
+
 import * as game from './pong.js';
 
 let reset = false;

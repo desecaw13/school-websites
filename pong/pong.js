@@ -1,24 +1,28 @@
-import { Checkboxland } from 'https://unpkg.com/checkboxland?module';
+import { Checkboxland } from './checkboxland.mjs';//'https://unpkg.com/checkboxland?module';
 import Paddle from './paddle.js';
 import Ball from './ball.js';
 
 /**
- * An instance of checkboxland.
+ * An instance of Checkboxland.
+ * @type {Checkboxland}
  */
 let cbl;
 
 /**
- * The paddle to the right. Moves up and down with arrow keys.
+ * The {@link Paddle} to the right. Moves up and down with arrow keys.
+ * @type {Paddle}
  */
 let firstP;
 
 /**
- * The paddle to the left. Moves automaticly, or with W and S keys.
+ * The {@link Paddle} to the left. Moves automaticly, or with W and S keys.
+ * @type {Paddle}
  */
 let secondP;
 
 /**
- * The ball. Moves and bounces.
+ * The {@link Ball}. Moves and bounces.
+ * @type {Ball}
  */
 let ball;
 
@@ -28,20 +32,31 @@ let ball;
 const score = {
     /**
      * The first player's points.
+     * @type {number}
      */
     p1: 0,
     
     /**
      * The second player's points.
+     * @type {number}
      */
     p2: 0
 };
 
+/**
+ * The height of {@link cbl}.
+ * @type {number}
+ */
 let maxHeight;
+
+/**
+ * The width of {@link cbl}.
+ * @type {number}
+ */
 let maxWidth;
 
 /**
- * Miscellaneous variables from `init`
+ * Miscellaneous variables from {@link init}.
  */
 let _info;
 
@@ -59,29 +74,59 @@ const pressedKeys = {
 /**
  * A delay in milliseconds for the second paddle when singleplayer.
  * Allows the human player to win.
+ * @type {number}
  */
 let delay;
 
+/**
+ * The current count until the second paddle can move when controlled by computer.
+ * @type {number}
+ */
+ let delayDelta = 0;
+
+/**
+ * The current speed of the ball. This increases over time.
+ * @type {number}
+ */
 let ballSpeed = 10;
+
+/**
+ * The amount of time it takes for the ball's speed to increase.
+ * @type {number}
+ */
 let millisecondsTillBallSpeedUp;
+
+/**
+ * The amount of time since the ball's speed last increased.
+ * @type {number}
+ */
 let timeSinceLastSpeedUp;
 
+/**
+ * The previous timestamp. For internal use.
+ * @type {number}
+ */
 let lastTimestamp = 0;
+
 /**
  * The previous timestamp.
  */
+// This is exported so lastTimestamp is mutable by importers.
 const lastRender = { value: lastTimestamp };
 
 /**
  * For waiting a few moments before moving the ball.
+ * @type {boolean}
  */
 let started = false;
 
 /**
- * Starts the game of pong.
- * @param {number} width The number of checkboxes horizontal. Must be a whole number.
- * @param {number} height The number of checkboxes vertical. Must be a whole number.
- * @param {*} options Options
+ * Starts the game of pong. All numerical arguments must be whole numbers.
+ * @param {number} width The number of checkboxes horizontal.
+ * @param {number} height The number of checkboxes vertical.
+ * @param {boolean} multiplayer TODO
+ * @param {string} difficulty Must be `'easy'`, `'medium'`, or `'hard'`
+ * @param {{}} options Options
  */
 function init(width, height, multiplayer, difficulty, options = {}) {
     cbl = new Checkboxland({ dimensions: `${width}x${height}` });
@@ -122,22 +167,26 @@ function init(width, height, multiplayer, difficulty, options = {}) {
         //...options
     };
 
+    // Wait half a second before starting to move the ball.
     setTimeout(() => { started = true; }, 500);
 }
 
 /**
- * Sets up ball direction, delay, and speed up.
- * @param {string} difficulty easy, medium, or hard.
+ * Sets up ball direction, speed up, and {@link delay}.
+ * @param {string} difficulty Must be 'easy', 'medium', or 'hard'
  */
 function genBallMovement(difficulty) {
-    ball.direction.x = Math.random() < 0.5 ? 1 : -1; // randomly pick either 1 or -1
-    ball.direction.y = Math.random() * 2 - 1; // randomly pick a floating point between -1 and 1
+    ball.direction.x = Math.random() < 0.5 ? 1 : -1; // randomly picks either 1 or -1
+    ball.direction.y = Math.random() * 4 - 2; // randomly picks a floating point between -2 and 2
 
     // ball.direction.y should not be close to zero because vertical movement will be too small.
-    while (Math.abs(ball.direction.y) < 0.1) {
+    while (Math.abs(ball.direction.y) < 0.275) {
         ball.direction.y = Math.random() * 2 - 1;
     }
+    //ball.direction.y = 0.275;
+    console.log('bdy:', ball.direction.y);
 
+    //todo: factor in (max) width to delay.
     const absBallDirY = Math.abs(ball.direction.y);
     switch (difficulty) {
         case 'easy':
@@ -150,16 +199,17 @@ function genBallMovement(difficulty) {
             delay = 50 + 50 * absBallDirY;
             break;
     }
+
     millisecondsTillBallSpeedUp = delay / absBallDirY;
     timeSinceLastSpeedUp = 0;
 }
 
 /**
  * Runs a game logic cycle.
- * @param {number} dt The delta time in ms.
+ * @param {number} dt The delta time in milliseconds.
  */
 function update(dt) {
-    //console.log(1/dt*1000);
+    //console.log('fps:', 1/dt*1000);
 
     if (ball.x > maxWidth) {
         score.p1 += 1;
@@ -243,7 +293,65 @@ function update(dt) {
 }
 
 /**
- * Updates display of game on screen.
+ * Controls the computer player two during singleplayer.
+ * @param {number} dt The delta time in ms.
+ */
+ function secondPTurn(dt) {
+    delayDelta += dt;
+    if (delayDelta >= delay) {
+        if (ball.y < secondP.y + secondP.height / 2 - 2) {
+            if (!(secondP.y <= 0)) {
+                secondP.y -= 1;
+            }
+        } else if (ball.y > secondP.y + secondP.height / 2 + 2) {
+            if (!(secondP.y >= maxHeight - secondP.height)) {
+                secondP.y += 1;
+            }
+        }
+        delayDelta = 0;
+    }
+}
+
+// todo: move to main.js
+const names = {
+    first: document.getElementById('first-name'),
+    second: document.getElementById('second-name')
+};
+
+/**
+ * Resets the game for a new round and updates the {@link score}.
+ */
+ function newRound() {
+    pressedKeys.up = false;
+    pressedKeys.w = false;
+    pressedKeys.down = false;
+    pressedKeys.s = false;
+    pressedKeys.changed = true;
+
+    firstP.x = _info.fx;
+    firstP.y = _info.py;
+
+    secondP.x = _info.sx;
+    secondP.y = _info.py;
+
+    ball.x = _info.bx;
+    ball.y = _info.by;
+
+    started = false;
+
+    ballSpeed = 10;
+
+    genBallMovement(_info.df);
+
+    names.first.setAttribute('score', score.p1);
+    names.second.setAttribute('score', score.p2);
+
+    // Wait half a second before re-starting to move the ball.
+    setTimeout(() => { started = true; }, 500);
+}
+
+/**
+ * Updates display of game on the screen.
  */
 function draw() {
     //if (pressedKeys.changed) {
@@ -255,43 +363,10 @@ function draw() {
     cbl.setData(...ball.getData());
 }
 
-// todo: move to main.js
-const names = {
-    first: document.getElementById('first-name'),
-    second: document.getElementById('second-name')
-};
-
 /**
- * Resets the game for a new round and updates the score.
+ * Removes the current state of the pong game.
+ * Sets most variables to null.
  */
-function newRound() {
-    firstP.x = _info.fx;
-    firstP.y = _info.py;
-
-    secondP.x = _info.sx;
-    secondP.y = _info.py;
-
-    ball.x = _info.bx;
-    ball.y = _info.by;
-
-    pressedKeys.up = false;
-    pressedKeys.w = false;
-    pressedKeys.down = false;
-    pressedKeys.s = false;
-    pressedKeys.changed = true;
-
-    started = false;
-
-    ballSpeed = 10;
-
-    genBallMovement(_info.df);
-
-    names.first.setAttribute('score', score.p1);
-    names.second.setAttribute('score', score.p2);
-
-    setTimeout(() => { started = true; }, 500);
-}
-
 function destroy() {
     // cbl.clearData();
     cbl = null;
@@ -316,31 +391,9 @@ function destroy() {
     started = false;
 }
 
-let delayDelta = 0;
-
-/**
- * Controls the computer player two during singleplayer.
- * @param {number} dt The delta time in ms.
- */
-function secondPTurn(dt) {
-    delayDelta += dt;
-    if (delayDelta >= delay) {
-        if (ball.y < secondP.y + secondP.height / 2 - 2) {
-            if (!(secondP.y <= 0)) {
-                secondP.y -= 1;
-            }
-        } else if (ball.y > secondP.y + secondP.height / 2 + 2) {
-            if (!(secondP.y >= maxHeight - secondP.height)) {
-                secondP.y += 1;
-            }
-        }
-        delayDelta = 0;
-    }
-}
-
 /**
  * Event handler for contolling paddles with keyboard.
- * @param {Event} e The keydown event
+ * @param {KeyboardEvent} e The keydown event.
  */
 function onKeyDown(e) {
     if (e.defaultPrevented) { return; }

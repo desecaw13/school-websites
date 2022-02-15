@@ -1,4 +1,4 @@
-// see top comments in paddle.js
+// For bouncing.
 
 /**
  * Represents a ball.

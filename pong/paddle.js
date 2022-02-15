@@ -1,5 +1,4 @@
-// X and Y are how many checkboxes away the upper left coner is.
-// X and Y must be integers.
+// X and Y are how many checkboxes away the upper left corner is from the origin (upper left corner of cbl).
 
 /**
  * Represents a paddle.
@@ -12,11 +11,11 @@ export default class Paddle {
     #height;
 
     /**
-     * Initializes a new paddle.
-     * @param {*} x The starting x position. Must be a whole number.
-     * @param {*} y The starting y position. Must be a whole number.
-     * @param {*} width The horizontal length.  Must be a whole number.
-     * @param {*} height The vertical length.  Must be a whole number.
+     * Initializes a new paddle. Arguments must be whole numbers.
+     * @param {*} x The starting x position.
+     * @param {*} y The starting y position.
+     * @param {*} width The horizontal length.
+     * @param {*} height The vertical length.
      */
     constructor(x, y, width, height) {
         this.#X = x;
@@ -44,7 +43,7 @@ export default class Paddle {
     get height() { return this.#height; }
 
     /**
-     * Returns a genarator than yields arguments for checkboxland's `setData` function.
+     * Returns a genarator that yields arguments for checkboxland's `setData` function.
      */
     *getData() {
         yield this.#data;
