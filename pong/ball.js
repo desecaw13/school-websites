@@ -4,10 +4,33 @@
  * Represents a ball.
  */
 export default class Ball {
+    /**
+     * Amount of checkboxes away the upper left corner is from the origin (upper left corner of cbl).
+     * @type {number}
+     */
     #X;
+
+    /**
+     * Amount of checkboxes away the upper left corner is from the origin (upper left corner of cbl).
+     * @type {number}
+     */
     #Y;
+
+    /**
+     * Length of the radius of the ball.
+     * @type {number}
+     */
     #radius;
+
+    /**
+     * Vector representing the ball's direction.
+     */
     direction = { x: 0, y: 0 };
+
+    /**
+     * Contains 2d array for drawing.
+     * @type {number[][]}
+     */
     #data;
 
     /**
@@ -40,12 +63,21 @@ export default class Ball {
         }
     }
 
+    /**
+     * Amount of checkboxes away the upper left corner is from the origin (upper left corner of cbl).
+     */
     get x() { return this.#X; }
     set x(v) { this.#X = v; }
 
+    /**
+     * Amount of checkboxes away the upper left corner is from the origin (upper left corner of cbl).
+     */
     get y() { return this.#Y; }
     set y(v) { this.#Y = v; }
 
+    /**
+     * Length of the radius of the ball.
+     */
     get radius() { return this.#radius; }
 
     /**

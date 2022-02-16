@@ -32,13 +32,11 @@ let ball;
 const score = {
     /**
      * The first player's points.
-     * @type {number}
      */
     p1: 0,
     
     /**
      * The second player's points.
-     * @type {number}
      */
     p2: 0
 };
@@ -80,13 +78,11 @@ let delay;
 
 /**
  * The current count until the second paddle can move when controlled by computer.
- * @type {number}
  */
  let delayDelta = 0;
 
 /**
  * The current speed of the ball. This increases over time.
- * @type {number}
  */
 let ballSpeed = 10;
 
@@ -124,7 +120,7 @@ let started = false;
  * Starts the game of pong. All numerical arguments must be whole numbers.
  * @param {number} width The number of checkboxes horizontal.
  * @param {number} height The number of checkboxes vertical.
- * @param {boolean} multiplayer TODO
+ * @param {boolean} multiplayer Enables multiplayer mode when `true`.
  * @param {string} difficulty Must be `'easy'`, `'medium'`, or `'hard'`
  * @param {{}} options Options
  */
@@ -134,6 +130,7 @@ function init(width, height, multiplayer, difficulty, options = {}) {
     maxWidth = width;
 
     //todo: options.v || default
+    //@param {*} options.v
 
     const pw = 2;
     const ph = height / 4;
@@ -172,7 +169,7 @@ function init(width, height, multiplayer, difficulty, options = {}) {
 }
 
 /**
- * Sets up ball direction, speed up, and {@link delay}.
+ * Sets up {@link ball} direction, speed up, and {@link delay}.
  * @param {string} difficulty Must be 'easy', 'medium', or 'hard'
  */
 function genBallMovement(difficulty) {
@@ -183,25 +180,28 @@ function genBallMovement(difficulty) {
     while (Math.abs(ball.direction.y) < 0.275) {
         ball.direction.y = Math.random() * 2 - 1;
     }
-    //ball.direction.y = 0.275;
-    console.log('bdy:', ball.direction.y);
+    //ball.direction.y = 1.8625;
 
-    //todo: factor in (max) width to delay.
     const absBallDirY = Math.abs(ball.direction.y);
     switch (difficulty) {
         case 'easy':
-            delay = 200 + 200 * absBallDirY;
+            delay = 200 + 200 * absBallDirY + maxWidth;
             break;
         case 'medium':
-            delay = 100 + 100 * absBallDirY;
+            delay = 100 + 100 * absBallDirY + maxWidth;
             break;
         case 'hard':
-            delay = 50 + 50 * absBallDirY;
+            delay = 50 + 50 * absBallDirY + maxWidth;
             break;
     }
 
     millisecondsTillBallSpeedUp = delay / absBallDirY;
     timeSinceLastSpeedUp = 0;
+
+    //console.log('ball.direction.y:', ball.direction.y);
+    //console.log('delay:', delay);
+    //console.log('millisecondsTillBallSpeedUp:', millisecondsTillBallSpeedUp);
+    //console.log('');
 }
 
 /**
