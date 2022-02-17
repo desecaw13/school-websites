@@ -34,7 +34,7 @@ const score = {
      * The first player's points.
      */
     p1: 0,
-    
+
     /**
      * The second player's points.
      */
@@ -79,7 +79,7 @@ let delay;
 /**
  * The current count until the second paddle can move when controlled by computer.
  */
- let delayDelta = 0;
+let delayDelta = 0;
 
 /**
  * The current speed of the ball. This increases over time.
@@ -197,11 +197,6 @@ function genBallMovement(difficulty) {
 
     millisecondsTillBallSpeedUp = delay / absBallDirY;
     timeSinceLastSpeedUp = 0;
-
-    //console.log('ball.direction.y:', ball.direction.y);
-    //console.log('delay:', delay);
-    //console.log('millisecondsTillBallSpeedUp:', millisecondsTillBallSpeedUp);
-    //console.log('');
 }
 
 /**
@@ -280,8 +275,8 @@ function update(dt) {
     }
 
     if (started) {
-        ball.x += ball.direction.x * ballSpeed * dt/1000;
-        ball.y += ball.direction.y * ballSpeed * dt/1000;
+        ball.x += ball.direction.x * ballSpeed * dt / 1000;
+        ball.y += ball.direction.y * ballSpeed * dt / 1000;
 
         timeSinceLastSpeedUp += dt;
     }
@@ -296,7 +291,7 @@ function update(dt) {
  * Controls the computer player two during singleplayer.
  * @param {number} dt The delta time in ms.
  */
- function secondPTurn(dt) {
+function secondPTurn(dt) {
     delayDelta += dt;
     if (delayDelta >= delay) {
         if (ball.y < secondP.y + secondP.height / 2 - 2) {
@@ -321,7 +316,7 @@ const names = {
 /**
  * Resets the game for a new round and updates the {@link score}.
  */
- function newRound() {
+function newRound() {
     pressedKeys.up = false;
     pressedKeys.w = false;
     pressedKeys.down = false;
@@ -368,7 +363,7 @@ function draw() {
  * Sets most variables to null.
  */
 function destroy() {
-    // cbl.clearData();
+    //cbl.clearData();
     cbl = null;
     firstP = null;
     secondP = null;

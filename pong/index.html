@@ -19,7 +19,8 @@
 		<details>
 			<summary>Explanation/Instructions</summary>
 			<p>This is the game Pong made with checkboxes, using <a href="https://www.bryanbraun.com/checkboxland/">Checkboxland</a>.</p>
-			<p>First player uses the arrow keys <kbd>Up</kbd> and <kbd>Down</kbd> and second player uses the <kbd>W</kbd> and <kbd>S</kbd> keys.</p>
+			<p>First player uses the arrow keys <kbd>Up</kbd> and <kbd>Down</kbd> and second player uses the
+				<kbd>W</kbd> and <kbd>S</kbd> keys.</p>
 		</details>
 		<h3>Options</h3>
 		<ul>
@@ -30,13 +31,11 @@
 			<li>
 				<h4>Dimensions</h4>
 				<label for="x-size">X</label>
-				<input id="x-size" name="xsize" type="range"
-					value="35" min="13" max="65" step="1"
+				<input id="x-size" name="xsize" type="range" value="35" min="13" max="65" step="1"
 					onchange="setAttribute('value', value);">
 				<br>
 				<label for="y-size">Y</label>
-				<input id="y-size" name="ysize" type="range"
-					value="24" min="13" max="65" step="1"
+				<input id="y-size" name="ysize" type="range" value="24" min="13" max="65" step="1"
 					onchange="setAttribute('value', value);">
 			</li>
 			<li>
@@ -45,7 +44,7 @@
 				<input id="easy" name="difficulty" type="radio" value="easy">
 				<wbr>
 				<label for="medium">Medium</label>
-				<input id="medium" name="difficulty" type="radio" value="medium" checked >
+				<input id="medium" name="difficulty" type="radio" value="medium" checked>
 				<wbr>
 				<label for="hard">Hard</label>
 				<input id="hard" name="difficulty" type="radio" value="hard">
@@ -70,6 +69,17 @@
 		<div id="checkboxland"></div>
 		<button id="reset" type="button">Reset</button>
 	</div>
+	<br>
+	<table id="scoreboard">
+		<thead>
+			<tr>
+				<th>Name 1</th>
+				<th>Score 1</th>
+				<th>Name 2</th>
+				<th>Score 2</th>
+			</tr>
+		</thead>
+		<tbody id="scorebody"></tbody>
+	</table>
 </body>
-<!-- TODO: score screen (table) -->
 </html>

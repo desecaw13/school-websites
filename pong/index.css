@@ -61,3 +61,20 @@ h3, h4 {
     display: none;
     margin: 0.5rem auto;
 }
+
+#scoreboard {
+    display: none;
+    margin-left: 2rem;
+    border-collapse: collapse;
+}
+
+#scoreboard > thead > tr > th {
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+#scorebody > tr > td {
+    border: 1px solid #bebebe;
+    padding: 0.3rem;
+    text-align: center;
+}
