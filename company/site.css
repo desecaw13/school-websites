@@ -1,0 +1,48 @@
+
+.pure-menu-item {
+    height: auto;
+}
+
+.button-large {
+    font-size: 125%;
+}
+
+header, footer {
+    display: inline-block;
+    clear: both;
+}
+
+header {
+    font-size: larger;
+}
+
+header > ul {
+    width: 100%;
+}
+
+footer {
+    font-size: smaller;
+}
+
+#splash {
+    padding: 5%;
+    padding-top: 1%;
+}
+
+#front-display {
+    padding: 3%;
+    background-image: url(front-display.png);
+    background-repeat: no-repeat;
+    background-size: 50% auto;
+    background-position: right;
+}
+
+#front-display > figcaption {
+    max-width: 50%;
+}
+
+/* #sales-pitch {} */
+
+table#pricing {
+    width: 100%;
+}
